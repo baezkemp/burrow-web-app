@@ -10,13 +10,11 @@
 <h2 th:text="${'Hello ' + user.name + '!'}"></h2>
 <p></p>
 
-<p th:unless="${user.properties} and ${user.properties.size()}">
-<div class="container body-content">
+<div th:unless="${user.properties} and ${user.properties.size()}" class="container body-content">
     <a th:href="@{'/properties/add'}">
         <input type="submit" value="Add Properties" class="btn btn-secondary">
     </a>
 </div>
-</p>
 
 <div class="container body-content">
     <ul>
