@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+<header th:replace="fragments :: header"></header>
+<div class="container breadcrumbs">
+    <span><a th:href="@{/}" th:text="${'Home-Page'}"></a></span>
+    <span>> Rooms</span>
+</div>
+<h2>Rooms</h2>
+<p th:unless="${user.rooms} and ${user.rooms.size()}">No rooms!</p>
+
+<div class="container body-content">
+    <ul>
+        <li th:each="room : ${user.rooms}">
+            <a th:href="@{'/rooms/view/' + ${room.id}}" th:text="${room.name + ' in ' + room.property.name}"></a>
+        </li>
+    </ul>
+    <a th:href="@{'/properties'}">
+        <input type="submit" value="Add Rooms" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Click to select a property and add a room">
+    </a>
+</div>
+<p></p>
+
+</body>
+</html>

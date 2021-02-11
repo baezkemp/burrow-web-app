@@ -1,0 +1,9 @@
+.gradle
+.idea
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+.idea/workspace.xml
+build/tmp/compileJava/source-classes-mapping.txt

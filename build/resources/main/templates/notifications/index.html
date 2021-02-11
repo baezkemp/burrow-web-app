@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+<header th:replace="fragments :: header"></header>
+<div class="container breadcrumbs">
+    <span><a th:href="@{/}" th:text="${'Home-Page'}"></a></span>
+    <span>> Notifications</span>
+</div>
+<h2>Notifications</h2>
+<p th:unless="${notifications} and ${notifications.size()}">No Notifications!</p>
+
+<!--<div class="container body-content">-->
+    <!--<ul>-->
+        <!--<li th:each="notification : ${notifications}">-->
+            <!--<div th:text="${notification.name}"></div>-->
+            <!--<div></div>-->
+        <!--</li>-->
+    <!--</ul>-->
+<!--</div>-->
+<form method="post" th:action="@{/notifications}">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th width="40px"></th>
+                <th>View Info</th>
+                <th>Notifications</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="notification : ${notifications}">
+                <td><input type="checkbox" name="notificationIds" th:value="${notification.id}" class="form-control"></td>
+                <td><a th:href="@{'/components/view/' + ${notification.component.id}}" th:text="${'Details'}"></a></td>
+                <td th:for="notificationIds" th:text="${notification.name}"></td>
+            </tr>
+            </tbody>
+        </table>
+    <input type="submit" value="Mark all checked components as replaced" class="btn btn-warning">
+</form>
+</body>
+</html>

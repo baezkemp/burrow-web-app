@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container body-content">
+<header th:replace="fragments :: header"></header>
+<div class="container breadcrumbs">
+    <span><a th:href="@{/}" th:text="${'Home-Page'}"></a></span>
+    <span>> <a th:href="@{/properties}" th:text="${'Properties'}"></a></span>
+    <span th:text="${'> ' + property.name}"></span>
+</div>
+<h2 th:text="${'Property: ' + property.name}">Default Title</h2>
+
+<div>
+    <p th:text="${'Name: ' + property.name}"></p>
+    <p th:if="${property.location != ''}" th:text="${'Location: ' + property.location}"></p>
+    <p th:if="${property.description != ''}" th:text="${'Description: ' + property.description}"></p>
+</div>
+
+<div>
+    <a th:href="@{/properties/edit/{id}(id=${property.id})}">
+        <input type="submit" value="Edit" class="btn btn-info">
+    </a>
+</div>
+
+<h3 th:text="${'Rooms:'}"></h3>
+<div>
+    <ul>
+        <li th:each="room : ${property.rooms}">
+            <a th:href="@{'/rooms/view/' + ${room.id}}" th:text="${room.name}"></a>
+        </li>
+    </ul>
+</div>
+
+<div>
+    <a th:href="@{/properties/addRoom/{id}(id=${property.id})}">
+        <input type="submit" value="Add Room" class="btn btn-secondary">
+    </a>
+</div>
+<p></p>
+
+<div>
+    <a th:href="@{/}">
+        <input type="submit" th:value="${'Back to Home-Page'}" class="btn btn-dark">
+    </a>
+</div>
+
+<th:block th:if="${property}">
+    <form method="post" th:action="@{/properties/view}" id="delete-property">
+        <input type="hidden" name="propertyId" th:value="${property.id}" class="form-control">
+        <input type="hidden" id="propertyId" th:value="${property.name}" class="form-control">
+        <p></p>
+        <input onclick="deleteProperty()" type="button" value="Delete Property" class="btn btn-danger">
+    </form>
+</th:block>
+
+</body>
+</html>

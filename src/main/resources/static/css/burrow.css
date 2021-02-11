@@ -1,0 +1,24 @@
+.error {
+    color: red;
+}
+
+.breadcrumbs {
+    background: #e6e6e6;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin-bottom: 10px;
+}
+
+table {
+    width: 100%;
+}
+
+.mailbox:hover {
+    text-decoration: none;
+}
+
+.custom-checkbox {
+    width: 15px;
+    height: 15px;
+}
+

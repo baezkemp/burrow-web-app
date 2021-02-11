@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+<header th:replace="fragments :: header"></header>
+<div class="container breadcrumbs">
+    <span><a th:href="@{/}" th:text="${'Home-Page'}"></a></span>
+    <span>> <a th:href="@{/properties}" th:text="${'Properties'}"></a></span>
+    <span>> <a th:href="@{/properties/view/{id}(id=${uneditedRoom.property.id})}" th:text="${uneditedRoom.property.name}"></a></span>
+    <span>> <a th:href="@{/rooms/view/{id}(id=${uneditedRoom.id})}" th:text="${uneditedRoom.name}"></a></span>
+    <span th:text="${'> ' + room.name + ' Edit'}"></span>
+</div>
+<h2>Edit Room</h2>
+
+<th:block th:unless="${room}">
+    <p>The Room you are trying to edit does not exist.</p>
+</th:block>
+<th:block th:if="${room}">
+    <form method="post" th:action="@{/rooms/edit}">
+        <div class="form-group">
+            <label>Name
+                <input type="text" name="name" class="form-control" th:value="${room.name}">
+            </label>
+            <span th:errors="${room.name}" class="error"></span>
+        </div>
+
+        <div class="form-group">
+            <label th:for="property">Property</label>
+            <select name="propertyId">
+                <option th:each="property : ${properties}"
+                        th:text="${property.name}"
+                        th:value="${property.id}"
+                        th:selected="${property.name == uneditedRoom.property.name}">
+                </option>
+            </select>
+        </div>
+        <p></p>
+
+        <input type="hidden" th:value="${roomId}" name="roomId" />
+        <div class="form-group">
+            <input type="submit" value="Save Changes" class="btn btn-success">
+        </div>
+    </form>
+</th:block>
+
+</body>
+</html>
