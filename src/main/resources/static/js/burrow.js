@@ -29,6 +29,7 @@ function deleteComponent() {
 
 $(function() {
     $( "#installDate" ).datepicker({
+        maxDate: 0
     });
  });
 
