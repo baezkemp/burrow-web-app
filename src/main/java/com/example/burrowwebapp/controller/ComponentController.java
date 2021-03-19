@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
@@ -128,6 +129,10 @@ public class ComponentController
                     return "redirect:../";
                 }
                 model.addAttribute("component", component);
+                String date = "01/01/9999";
+                DateTimeFormatter df = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+                LocalDate blankDate = LocalDate.parse(date, df);
+                model.addAttribute("localDate", blankDate);
             }
         }
         return "components/view";

@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 public class Component extends AbstractEntity {
@@ -25,21 +26,19 @@ public class Component extends AbstractEntity {
     @Min(value=1, message = "Quantity must be greater than or equal to 1")
     private Integer quantity;
 
-    @NotNull(message = "Please enter a date")
     @DateTimeFormat(pattern = "MM/dd/yyyy")
     private LocalDate installDate;
 
     @OneToOne(mappedBy = "component", cascade = CascadeType.ALL, orphanRemoval = true)
     private Notification notification;
 
-    @NotNull(message = "Please enter number of days")
-    @Min(value=1, message = "Day(s) must be greater than or equal to 1")
+    @Min(value=0)
     @Max(value=3650)
     private Long daysBetweenReplacements;
 
     public Component(@NotBlank String name, User user, @Size(max = 250, message = "Description must be less than 250 characters") String description,
-                     Device device, @NotNull @Min(value=1) Integer quantity, @NotNull LocalDate installDate,
-                     @NotNull @Min(value=1) @Max(value=3650) Long daysBetweenReplacements) {
+                     Device device, @NotNull @Min(value=1) Integer quantity, LocalDate installDate,
+                     @Min(value=0) @Max(value=3650) Long daysBetweenReplacements) {
         this.setName(name);
         this.user = user;
         this.description = description;
@@ -92,6 +91,12 @@ public class Component extends AbstractEntity {
 
     public void setInstallDate(LocalDate installDate) {
         this.installDate = installDate;
+        String date = "01/01/9999";
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        LocalDate blankDate = LocalDate.parse(date, df);
+        if (this.installDate == null) {
+            this.installDate = blankDate;
+        }
     }
 
     public Notification getNotification()
@@ -112,5 +117,9 @@ public class Component extends AbstractEntity {
     public void setDaysBetweenReplacements(Long daysBetweenReplacements)
     {
         this.daysBetweenReplacements = daysBetweenReplacements;
+        long noReplacementDays = 0;
+        if (this.daysBetweenReplacements == null) {
+            this.daysBetweenReplacements = noReplacementDays;
+        }
     }
 }
