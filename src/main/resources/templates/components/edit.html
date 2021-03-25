@@ -59,7 +59,7 @@
 
         <div class="form-group" th:unless="${component.installDate != localDate}">
             <label th:for="installDate">Install Date</label>
-            <input class="form-control" th:field="${component.installDate}" th:value="${component.installDate}" type="text" id="localDate" name="installDate" placeholder="MM/DD/YYYY" autocomplete="off"/>
+            <input class="form-control" th:field="${component.installDate}" th:value="${component.installDate}" type="text" id="editInstallDate" name="installDate" placeholder="MM/DD/YYYY" autocomplete="off"/>
         </div>
 
         <div class="form-group" th:if="${component.daysBetweenReplacements != noReplacementDays}">

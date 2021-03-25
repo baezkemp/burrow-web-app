@@ -33,11 +33,11 @@ $(function() {
     });
  });
 
- $(function() {
-     $( "#localDate" ).datepicker({
-         maxDate: 0
-     });
-  });
+$(function() {
+    $( "#editInstallDate" ).datepicker({
+        maxDate: 0
+    });
+});
 
 $(function(){
  $("#sortTable").DataTable(
