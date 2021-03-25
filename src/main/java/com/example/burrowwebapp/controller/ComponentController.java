@@ -163,6 +163,8 @@ public class ComponentController
                 DateTimeFormatter df = DateTimeFormatter.ofPattern("MM/dd/yyyy");
                 LocalDate blankDate = LocalDate.parse(date, df);
                 model.addAttribute("localDate", blankDate);
+                long noReplacementDays = 0;
+                model.addAttribute("noReplacementDays", noReplacementDays);
             }
         }
         return "components/edit";
