@@ -188,9 +188,19 @@ public class ComponentController
         component.setName(name);
         component.setDescription(description);
         component.setQuantity(quantity);
+        String date = "01/01/9999";
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        LocalDate blankDate = LocalDate.parse(date, df);
+        if (installDate == null) {
+            installDate = blankDate;
+        }
         component.setInstallDate(installDate);
         Device device = deviceRepository.findById(deviceId).get();
         component.setDevice(device);
+        long noReplacementDays = 0;
+        if (daysBetweenReplacements == null) {
+            daysBetweenReplacements = noReplacementDays;
+        }
         component.setDaysBetweenReplacements(daysBetweenReplacements);
         Notification notification = component.getNotification();
         notification.setReplacedDate(installDate);
