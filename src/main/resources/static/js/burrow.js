@@ -33,6 +33,12 @@ $(function() {
     });
  });
 
+ $(function() {
+     $( "#localDate" ).datepicker({
+         maxDate: 0
+     });
+  });
+
 $(function(){
  $("#sortTable").DataTable(
  );

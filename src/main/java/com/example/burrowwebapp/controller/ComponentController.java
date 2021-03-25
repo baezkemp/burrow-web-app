@@ -159,6 +159,10 @@ public class ComponentController
                 model.addAttribute("uneditedComponent", component);
                 model.addAttribute("devices", deviceRepository.findAll());
                 model.addAttribute("names", nameList);
+                String date = "01/01/9999";
+                DateTimeFormatter df = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+                LocalDate blankDate = LocalDate.parse(date, df);
+                model.addAttribute("localDate", blankDate);
             }
         }
         return "components/edit";
