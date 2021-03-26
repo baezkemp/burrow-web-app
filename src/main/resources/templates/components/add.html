@@ -35,14 +35,26 @@
         <span th:errors="${component.description}" class="error"></span>
     </div>
 
-    <div class="form-group">
+    <div class="form-group" th:if="${component.installDate != localDate}">
         <label th:for="installDate">Install Date</label>
         <input class="form-control" th:field="${component.installDate}" th:value="${component.installDate}" type="text" id="installDate" name="installDate" placeholder="MM/DD/YYYY" autocomplete="off"/>
     </div>
 
-    <div class="form-group">
+    <div class="form-group" th:unless="${component.installDate != localDate}">
+        <label th:for="installDate">Install Date</label>
+        <input class="form-control" value="" type="text" id="editInstallDate" name="installDate" placeholder="MM/DD/YYYY" autocomplete="off"/>
+    </div>
+
+    <div class="form-group" th:if="${component.daysBetweenReplacements != noReplacementDays}">
         <label th:for="daysBetweenReplacements">Enter the number of days until you would like to be notified to replace this</label>
         <input class="form-control" th:field="${component.daysBetweenReplacements}" th:value="${component.daysBetweenReplacements}" type="text" name="daysBetweenReplacements" placeholder="0"/>
+        <span th:errors="${component.daysBetweenReplacements}" class="error"></span>
+    </div>
+
+    <div class="form-group" th:unless="${component.daysBetweenReplacements != noReplacementDays}">
+        <label th:for="daysBetweenReplacements">Enter the number of days until you would like to be notified to replace this</label>
+        <input class="form-control" value="" type="text" name="daysBetweenReplacements" placeholder="0"/>
+        <span th:errors="${component.daysBetweenReplacements}" class="error"></span>
     </div>
 
     <input type="submit" value="Add Component" />

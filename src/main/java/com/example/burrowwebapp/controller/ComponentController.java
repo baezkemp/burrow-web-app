@@ -92,6 +92,12 @@ public class ComponentController
         if (errors.hasErrors()) {
             model.addAttribute("device", deviceRepository.findById(deviceId).get());
             model.addAttribute("names", nameList);
+            String date = "01/01/9999";
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+            LocalDate blankDate = LocalDate.parse(date, df);
+            model.addAttribute("localDate", blankDate);
+            long noReplacementDays = 0;
+            model.addAttribute("noReplacementDays", noReplacementDays);
             return "components/add";
         }
         Optional optDevice = deviceRepository.findById(deviceId);
