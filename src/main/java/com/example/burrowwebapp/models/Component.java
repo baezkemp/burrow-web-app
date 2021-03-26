@@ -32,7 +32,7 @@ public class Component extends AbstractEntity {
     @OneToOne(mappedBy = "component", cascade = CascadeType.ALL, orphanRemoval = true)
     private Notification notification;
 
-    @Min(value=0)
+    @Min(value=0, message = "Days must be greater than or equal to 0")
     @Max(value=3650)
     private Long daysBetweenReplacements;
 
