@@ -86,7 +86,10 @@ public class Notification extends AbstractEntity
     public void needsToBeReplaced(){
         LocalDate nextReplacementDate = this.replacedDate.plusDays(daysBetweenReplacements);
         LocalDate today = LocalDate.now();
-        if(today.isAfter(this.replacedDate.plusDays(daysBetweenReplacements))){
+        long noReplacementDays = 0;
+        if(daysBetweenReplacements == noReplacementDays) {
+            this.setActive(false);
+        }else if(today.isAfter(nextReplacementDate)){
             this.setActive(true);
         }else{
             this.setActive(false);

@@ -33,6 +33,12 @@ $(function() {
     });
  });
 
+$(function() {
+    $( "#editInstallDate" ).datepicker({
+        maxDate: 0
+    });
+});
+
 $(function(){
  $("#sortTable").DataTable(
  );

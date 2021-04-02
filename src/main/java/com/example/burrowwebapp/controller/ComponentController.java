@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
@@ -91,6 +92,12 @@ public class ComponentController
         if (errors.hasErrors()) {
             model.addAttribute("device", deviceRepository.findById(deviceId).get());
             model.addAttribute("names", nameList);
+            String date = "01/01/9999";
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+            LocalDate blankDate = LocalDate.parse(date, df);
+            model.addAttribute("localDate", blankDate);
+            long noReplacementDays = 0;
+            model.addAttribute("noReplacementDays", noReplacementDays);
             return "components/add";
         }
         Optional optDevice = deviceRepository.findById(deviceId);
@@ -128,6 +135,10 @@ public class ComponentController
                     return "redirect:../";
                 }
                 model.addAttribute("component", component);
+                String date = "01/01/9999";
+                DateTimeFormatter df = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+                LocalDate blankDate = LocalDate.parse(date, df);
+                model.addAttribute("localDate", blankDate);
             }
         }
         return "components/view";
@@ -154,6 +165,12 @@ public class ComponentController
                 model.addAttribute("uneditedComponent", component);
                 model.addAttribute("devices", deviceRepository.findAll());
                 model.addAttribute("names", nameList);
+                String date = "01/01/9999";
+                DateTimeFormatter df = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+                LocalDate blankDate = LocalDate.parse(date, df);
+                model.addAttribute("localDate", blankDate);
+                long noReplacementDays = 0;
+                model.addAttribute("noReplacementDays", noReplacementDays);
             }
         }
         return "components/edit";
@@ -170,6 +187,12 @@ public class ComponentController
             model.addAttribute("componentId", componentId);
             model.addAttribute("devices", deviceRepository.findAll());
             model.addAttribute("names", nameList);
+            String date = "01/01/9999";
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+            LocalDate blankDate = LocalDate.parse(date, df);
+            model.addAttribute("localDate", blankDate);
+            long noReplacementDays = 0;
+            model.addAttribute("noReplacementDays", noReplacementDays);
             return "components/edit";
         }
 
@@ -177,9 +200,19 @@ public class ComponentController
         component.setName(name);
         component.setDescription(description);
         component.setQuantity(quantity);
+        String date = "01/01/9999";
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        LocalDate blankDate = LocalDate.parse(date, df);
+        if (installDate == null) {
+            installDate = blankDate;
+        }
         component.setInstallDate(installDate);
         Device device = deviceRepository.findById(deviceId).get();
         component.setDevice(device);
+        long noReplacementDays = 0;
+        if (daysBetweenReplacements == null) {
+            daysBetweenReplacements = noReplacementDays;
+        }
         component.setDaysBetweenReplacements(daysBetweenReplacements);
         Notification notification = component.getNotification();
         notification.setReplacedDate(installDate);
