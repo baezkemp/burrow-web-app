@@ -27,8 +27,19 @@ dependencies {
 	implementation 'org.springframework.security:spring-security-crypto'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compile 'io.github.createam-labs:spring-boot-starter-heroku:1.1'
 }
 
 test {
 	useJUnitPlatform()
 }
+
+task stage(dependsOn: ['build', 'clean'])
+build.mustRunAfter clean
+
+task copyToLib(type: Copy) {
+	into "$buildDir/libs"
+	from(configurations.compile)
+}
+
+stage.dependsOn(copyToLib)
