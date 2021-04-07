@@ -43,7 +43,7 @@ public class HelloController {
 
     private static final String userSessionKey = "user";
 
-    @RequestMapping("")
+    @RequestMapping(path = {"/", ""})
     public String welcomeUserFromSession(Model model, HttpSession session) {
         Integer userId = (Integer) session.getAttribute(userSessionKey);
         if (userId == null) {
