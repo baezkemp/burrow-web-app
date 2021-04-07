@@ -29,8 +29,15 @@ function deleteComponent() {
 
 $(function() {
     $( "#installDate" ).datepicker({
+        maxDate: 0
     });
  });
+
+$(function() {
+    $( "#editInstallDate" ).datepicker({
+        maxDate: 0
+    });
+});
 
 $(function(){
  $("#sortTable").DataTable(
