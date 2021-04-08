@@ -39,15 +39,9 @@ test {
 task stage(dependsOn: ['build', 'clean'])
 build.mustRunAfter clean
 
-task stage(type: Copy, dependsOn: [clean, build]) {
-	from jar.archivePath
-	into project.rootDir
-	rename {
-		'app.jar'
-	}
+task copyToLib(type: Copy) {
+	into "$buildDir/libs"
+	from(configurations.compile)
 }
-stage.mustRunAfter(clean)
 
-clean << {
-	project.file('app.jar').delete()
-}
+stage.dependsOn(copyToLib)
