@@ -1,1 +1,1 @@
-web: java -jar target/myburrow.jar
+web: java -jar target/myapp.jar
